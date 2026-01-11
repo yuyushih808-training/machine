@@ -82,9 +82,12 @@ export default function EquipmentBookingSystem() {
   };
 
   const saveBookings = async (newBookings) => {
+    // 先更新 React state（確保 UI 立即更新）
+    setBookings(newBookings);
+    
+    // 再保存到 storage
     try {
       await window.storage.set('equipment-bookings', JSON.stringify(newBookings));
-      setBookings(newBookings);
     } catch (error) {
       console.error('Failed to save bookings:', error);
       showNotification('儲存失敗，請重試', 'error');
